@@ -12,4 +12,4 @@
 
 # Documentation
 
-https://scotch.io/tutorials/getting-started-with-webpack-module-bundling-magic
+https://scotch.io/@zuppif/create-a-basic-stop-watch-with-electron-and-react
