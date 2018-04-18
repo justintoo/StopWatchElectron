@@ -1,25 +1,27 @@
-// client.jsx
-import React from "react";
-import ReactDOM from "react-dom";
-// import children
-import StopWatch from './StopWatch.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
 
-class App extends React.Component {
+import GridLayout from 'react-grid-layout';
 
-  render() {
-    return (
-      <div className="mdl-layout mdl-js-layout">
-        <main className="mdl-layout__content mld-item--centered">
-          <div className="mdl-grid">
-            <StopWatch/>
-          </div>
-        </main>
-      </div>
-    )
-  }
-}
+import Downloader from './Downloader.jsx';
+import LeftSidebar from './LeftSidebar.jsx'
+import MainContent from './MainContent.jsx'
 
-const appDom = document.getElementById('app')
+const App = () => (
+  <MuiThemeProvider>
+    <div>
+      <AppBar title="ROSE Installer" />
+      <table>
+        <td width="200px"><LeftSidebar /></td>
+        <td><MainContent /></td>
+      </table>
+    </div>
+  </MuiThemeProvider>
+);
 
 ReactDOM.render(
-  <App/>, appDom);
+  <App />,
+  document.getElementById('app')
+);
