@@ -9,3 +9,7 @@
 ├── Template // initial template for the tutorial
 └── scotch.io // all the files used to create the article
 ```
+
+# Documentation
+
+https://scotch.io/tutorials/getting-started-with-webpack-module-bundling-magic
