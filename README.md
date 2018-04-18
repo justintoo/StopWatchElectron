@@ -1,3 +1,13 @@
+# Quickstart
+
+```
+$ npm install
+# build the application with webpack for the first time
+$ npm run build
+# display the application with Electron
+$ npm run app
+```
+
 # Stop Watch with Electron
 ### An easy application made with Electron, React and Material Design Lite for scotch.io by Francesco Saverio Zuppichini
 #### Repository Structure
