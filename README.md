@@ -4,6 +4,8 @@
 $ npm install
 # build the application with webpack for the first time
 $ npm run build
+
+$ npm run watch
 # display the application with Electron
 $ npm run app
 ```
