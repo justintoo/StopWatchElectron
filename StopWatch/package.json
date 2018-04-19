@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "babel": "^6.5.2",
+    "electron-dl": "^1.11.0",
     "material-ui": "^0.20.0",
     "moment": "^2.17.0",
     "react": "^15.4.0",

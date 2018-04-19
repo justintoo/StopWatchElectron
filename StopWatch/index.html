@@ -6,15 +6,21 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
   <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.blue-indigo.min.css" />
-  <link rel="stylesheet" href="/node_modules/react-grid-layout/css/styles.css" />
-  <link rel="stylesheet" href="/node_modules/react-resizable/css/styles.css" />
   <link rel="stylesheet" href="./style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
   <title>ROSE Installer</title>
 </head>
 
 <body>
   <div id="app"></div>
   <script src="app.min.js"></script>
+
+  <script type="text/babel">
+  alert('foo')
+    const {ipcRenderer} = require('electron');
+    ipcRenderer.send('download-btn', {'url': 'http://rosecompiler.org/edg_binaries/edg_binaries.txt'});
+    console.log('test');
+  </script>
 </body>
 
 </html>

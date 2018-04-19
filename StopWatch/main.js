@@ -16,8 +16,8 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    minWidth: 300,
-    minHeight: 200
+    minWidth: 600,
+    minHeight: 300
   })
 // un-comment this if you like to keep the same aspect ratio when
 // mainWindow.setAspectRatio(1.3)
@@ -64,3 +64,14 @@ app.on('activate', function() {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+app.on('ready', () => {
+  const {download} = require('electron-dl');
+
+  const {ipcMain} = require('electron')
+
+  ipcMain.on('download-btn', (e, args) => {
+        download(BrowserWindow.getFocusedWindow(), args.url)
+          .then(dl => console.log(dl.getSavePath()))
+          .catch(console.error);
+  })
+})
