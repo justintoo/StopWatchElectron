@@ -14,12 +14,10 @@ const App = () => (
     <div>
       <AppBar title="ROSE Installer" />
       <table>
-        <tbody>
           <tr>
             <td width="200px"><LeftSidebar /></td>
             <td><MainContent /></td>
           </tr>
-        </tbody>
       </table>
     </div>
   </MuiThemeProvider>

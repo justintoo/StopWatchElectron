@@ -8,46 +8,48 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
+const API = 'https://hn.algolia.com/api/v1/search?query=';
+const DEFAULT_QUERY = 'redux';
+
 /**
  * A simple table demonstrating the hierarchy of the `Table` component and its sub-components.
  */
-const MainTable = () => (
-  <Table>
-    <TableHeader>
-      <TableRow>
-        <TableHeaderColumn>ID</TableHeaderColumn>
-        <TableHeaderColumn>Name</TableHeaderColumn>
-        <TableHeaderColumn>Status</TableHeaderColumn>
-      </TableRow>
-    </TableHeader>
-    <TableBody>
-      <TableRow>
-        <TableRowColumn>1</TableRowColumn>
-        <TableRowColumn>John Smith</TableRowColumn>
-        <TableRowColumn>Employed</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>2</TableRowColumn>
-        <TableRowColumn>Randal White</TableRowColumn>
-        <TableRowColumn>Unemployed</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>3</TableRowColumn>
-        <TableRowColumn>Stephanie Sanders</TableRowColumn>
-        <TableRowColumn>Employed</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>4</TableRowColumn>
-        <TableRowColumn>Steve Brown</TableRowColumn>
-        <TableRowColumn>Employed</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>5</TableRowColumn>
-        <TableRowColumn>Christopher Nolan</TableRowColumn>
-        <TableRowColumn>Unemployed</TableRowColumn>
-      </TableRow>
-    </TableBody>
-  </Table>
-);
+class MainTable extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      hits: [],
+    };
+  }
+
+  componentDidMount() {
+    fetch(API + DEFAULT_QUERY)
+      .then(response => response.json())
+      .then(data => this.setState({ hits: data.hits }));
+  }
+
+
+  render() {
+    const { hits } = this.state;
+    return (
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHeaderColumn>Title</TableHeaderColumn>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {hits.map(hit =>
+            <TableRow>
+              <TableRowColumn><a href={hit.url}>{hit.title}</a></TableRowColumn>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    );
+    }
+}
 
 export default MainTable;
