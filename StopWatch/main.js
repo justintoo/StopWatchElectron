@@ -64,14 +64,26 @@ app.on('activate', function() {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-app.on('ready', () => {
-  const {download} = require('electron-dl');
+const {download} = require('electron-dl');
 
-  const {ipcMain} = require('electron')
+const {ipcMain} = require('electron')
 
-  ipcMain.on('download-btn', (e, args) => {
-        download(BrowserWindow.getFocusedWindow(), args.url)
-          .then(dl => console.log(dl.getSavePath()))
-          .catch(console.error);
-  })
+ipcMain.on('download-edg-file', (event, args) => {
+      download(BrowserWindow.getFocusedWindow(), args.url)
+        .then(dl => {
+          var linesArray = []
+
+          var fs = require('fs');
+          var array = fs.readFileSync(dl.getSavePath()).toString().split("\n");
+
+          // Remove comments
+          for (var i=array.length-1; i>=0; i--) {
+              if (array[i].includes('#')) {
+                  array.splice(i, 1);
+              }
+          }
+
+          event.sender.send('downloaded-edg-file', array)
+        })
+        .catch(console.error);
 })

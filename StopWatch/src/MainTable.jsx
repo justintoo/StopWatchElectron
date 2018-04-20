@@ -8,8 +8,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-const API = 'https://hn.algolia.com/api/v1/search?query=';
-const DEFAULT_QUERY = 'redux';
+const API = 'http://rosecompiler.org/edg_binaries/edg_binaries.txt';
 
 /**
  * A simple table demonstrating the hierarchy of the `Table` component and its sub-components.
@@ -25,14 +24,15 @@ class MainTable extends React.Component {
   }
 
   componentDidMount() {
-    fetch(API + DEFAULT_QUERY)
-      .then(response => response.json())
-      .then(data => this.setState({ hits: data.hits }));
+    const {ipcRenderer} = require('electron');
+    ipcRenderer.send('download-edg-file', {'url': 'http://rosecompiler.org/edg_binaries/edg_binaries.txt'});
+    ipcRenderer.on('downloaded-edg-file', (event, arg) => {
+      console.log('Received EDG file from main')
+      this.setState({ hits: arg })
+    })
   }
 
-
   render() {
-    const { hits } = this.state;
     return (
       <Table>
         <TableHeader>
@@ -40,13 +40,13 @@ class MainTable extends React.Component {
             <TableHeaderColumn>Title</TableHeaderColumn>
           </TableRow>
         </TableHeader>
-        <TableBody>
-          {hits.map(hit =>
-            <TableRow>
-              <TableRowColumn><a href={hit.url}>{hit.title}</a></TableRowColumn>
-            </TableRow>
-          )}
-        </TableBody>
+                <TableBody>
+                  {this.state.hits.map(hit =>
+                    <TableRow>
+                      <TableRowColumn><a href={hit}>{hit}</a></TableRowColumn>
+                    </TableRow>
+                  )}
+                </TableBody>
       </Table>
     );
     }
